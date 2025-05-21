@@ -86,18 +86,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error) throw error;
 
       if (data.user) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert([
-            {
-              id: data.user.id,
-              email: data.user.email,
-              credits: 10,
-              plan: 'free'
-            }
-          ]);
+        // Check if profile already exists
+        const existingProfile = await getProfile(data.user.id);
+        
+        if (!existingProfile) {
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert([
+              {
+                id: data.user.id,
+                email: data.user.email,
+                credits: 10,
+                plan: 'free'
+              }
+            ]);
 
-        if (profileError) throw profileError;
+          if (profileError) throw profileError;
+        }
         
         toast.success('Account created successfully! Please check your email.');
         navigate('/login');
