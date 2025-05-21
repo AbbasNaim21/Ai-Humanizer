@@ -1,22 +1,10 @@
 import TextHumanizer from '../components/TextHumanizer';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MoveRight, User, Award, Shield, Check } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useAuth } from '../context/AuthContext';
 
 export default function HomePage() {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const handleGetStarted = () => {
-    if (user) {
-      navigate('/dashboard');
-    } else {
-      navigate('/register');
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -34,13 +22,13 @@ export default function HomePage() {
                   Transform robotic AI content into natural, engaging copy that connects with your audience.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                  <button 
-                    onClick={handleGetStarted}
+                  <Link 
+                    to="/register" 
                     className="inline-flex items-center rounded-lg bg-white text-primary-700 px-6 py-3 text-base font-medium shadow-sm hover:bg-primary-50 transition-colors duration-150"
                   >
                     Get Started Free
                     <MoveRight className="ml-2 h-5 w-5" />
-                  </button>
+                  </Link>
                   <Link 
                     to="/pricing" 
                     className="inline-flex items-center rounded-lg bg-primary-700 text-white px-6 py-3 text-base font-medium shadow-sm hover:bg-primary-800 transition-colors duration-150"
@@ -203,13 +191,13 @@ export default function HomePage() {
               Join thousands of writers who have improved their content with our AI Text Humanizer.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <button
-                onClick={handleGetStarted}
+              <Link 
+                to="/register" 
                 className="inline-flex items-center rounded-lg bg-white text-primary-700 px-6 py-3 text-base font-medium shadow-sm hover:bg-primary-50 transition-colors duration-150"
               >
                 Get Started Free
                 <Check className="ml-2 h-5 w-5" />
-              </button>
+              </Link>
               <Link 
                 to="/pricing" 
                 className="inline-flex items-center rounded-lg bg-primary-700 text-white px-6 py-3 text-base font-medium shadow-sm hover:bg-primary-800 transition-colors duration-150"
